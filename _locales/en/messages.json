@@ -1,0 +1,26 @@
+{
+  "extensionName": {
+    "message": "Send Tab To",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Easily move Tabs between browser windows",
+    "description": "Description of the add-on."
+  },
+
+  "menuItemMoveTab": {
+    "message": "Move Tab",
+    "description": "Move tab to a specific window"
+  },
+
+  "sidebarMenuName": {
+    "message": "Windows",
+    "description": "Name of sidebar in the sidebar menu."
+  },
+
+  "menuItemOpenSidebar": {
+    "message": "Manage windows",
+    "description": "Title of context menu item that opens a sidebar."
+  }
+}

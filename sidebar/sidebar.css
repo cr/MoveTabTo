@@ -1,0 +1,23 @@
+.tab_list_div {
+
+}
+.tab_div {
+    vertical-align: middle;
+    clear: both;
+    background-color: lightgray;
+}
+.tab_icon {
+    vertical-align: middle;
+    margin-left: 0.3em;
+    float: left;
+}
+.tab_title {
+    vertical-align: middle;
+    margin: 0.3em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 1.5em;
+    max-height: 1.5em;
+    line-height: 1.5em;
+}
