@@ -158,8 +158,11 @@ WindowManager.prototype.tabAttachedHandler = function WM_tabAttachedHandler(tabI
 };
 WindowManager.prototype.tabDetachedHandler = function WM_tabDetachedHandler(tabId, detachInfo) {
     console.log("WM tab detached:", tabId, detachInfo);
-    this.teardown();
-    this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
+    // if (updateInProgress) return;
+    // updateInProgress = true;
+    // this.teardown();
+    // this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
+    // updateInProgress = false;
 };
 WindowManager.prototype.tabUpdatedHandler = function WM_tabUpdatedHandler(tabId, changeInfo, tab) {
     console.log("WM tab updated:", tabId, changeInfo, tab);

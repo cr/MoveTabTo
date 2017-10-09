@@ -109,6 +109,10 @@ browser.menus.onClicked.addListener((info, tab) => {
         console.log("Moved tab: ", tab);
     }
 
+    function onActive(tab) {
+        console.log("Activated tab: ", tab);
+    }
+
     function onFocused(window) {
         console.log("Focused on window: ", window);
     }
@@ -127,6 +131,7 @@ browser.menus.onClicked.addListener((info, tab) => {
         const windowObject = browser.windows.get(windowId);
         console.log("Moving tab to window ", tab, windowObject);
         browser.tabs.move(tab.id, {windowId: windowId, index: -1}).then(onMoved, onError);
+        browser.tabs.update(tab.id, {active: true}).then(onActive, onError);
 
     } else if (info.menuItemId.startsWith("focus-on_")) {
 
