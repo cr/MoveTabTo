@@ -15,7 +15,7 @@ function windowTitleClickHandler(event) {
 
 function getWindowTitle(windowId) {
     const storedName = localStorage.getItem(windowId);
-    console.log(`Stored name for window ${windowId} is "${storedName}"`);
+    // console.log(`Stored name for window ${windowId} is "${storedName}"`);
     if ((storedName === null) || (storedName.length === 0)) {
         return `Window-${windowId}`;
     }
@@ -43,6 +43,26 @@ function sendTitleUpdate(event) {
     console.log(`Renaming window ${windowId} to "${newName}"`);
     browser.runtime.sendMessage({action: "rename_window", windowId: windowId});
     updateWindowTitle(windowId);  // For updating this WM. It doesn't seem to get the message.
+}
+
+function focusTab(event) {
+    // Find element with tab ID
+    let tab = event.target;
+    while (!tab.id.startsWith("tab-item_")) tab = tab.parentNode;  // TODO: Give up at top node.
+    const tabId = parseInt(tab.id.split("_")[1]);
+    browser.tabs.get(tabId).then((tab) => {
+        browser.tabs.update(tab.id, {active: true}).then((tab) => {
+            browser.windows.update(tab.windowId, {focused: true});
+        });
+    });
+}
+
+function closeTab(event) {
+    // Find element with tab ID
+    let tab = event.target;
+    while (!tab.id.startsWith("tab-item_")) tab = tab.parentNode;  // TODO: Give up at top node.
+    const tabId = parseInt(tab.id.split("_")[1]);
+    browser.tabs.remove(tabId);
 }
 
 
@@ -100,6 +120,8 @@ WindowManager.prototype.addWindow = function WM_addWindow(windowInfo) {
         const tabDiv = document.createElement("div");
         tabDiv.id = `tab-item_${tab.id}`;
         tabDiv.className = "tab_div";
+        tabDiv.addEventListener("click", focusTab);
+        tabDiv.addEventListener("dblclick", closeTab);
 
         const tabIcon = document.createElement("img");
         tabIcon.className = "tab_icon";
@@ -144,8 +166,7 @@ WindowManager.prototype.tabCreatedHandler = function WM_tabCreatedHandler(tab) {
 };
 WindowManager.prototype.tabRemovedHandler = function WM_tabRemovedHandler(tabId, removeInfo) {
     console.log("WM tab removed:", tabId, removeInfo);
-    this.teardown();
-    this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
+    document.getElementById(`tab-item_${tabId}`).remove();
 };
 WindowManager.prototype.tabMovedHandler = function WM_tabMovedHandler(tabId, moveInfo) {
     console.log("WM tab moved:", tabId, moveInfo);
@@ -159,11 +180,7 @@ WindowManager.prototype.tabAttachedHandler = function WM_tabAttachedHandler(tabI
 };
 WindowManager.prototype.tabDetachedHandler = function WM_tabDetachedHandler(tabId, detachInfo) {
     console.log("WM tab detached:", tabId, detachInfo);
-    // if (updateInProgress) return;
-    // updateInProgress = true;
-    // this.teardown();
-    // this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
-    // updateInProgress = false;
+    document.getElementById(`tab-item_${tabId}`).remove();
 };
 WindowManager.prototype.tabUpdatedHandler = function WM_tabUpdatedHandler(tabId, changeInfo, tab) {
     console.log("WM tab updated:", tabId, changeInfo, tab);

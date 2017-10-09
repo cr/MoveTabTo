@@ -2,7 +2,7 @@
 
 function getWindowTitle(windowId) {
     const storedName = localStorage.getItem(windowId);
-    console.log(`Stored name for window ${windowId} is "${storedName}"`);
+    // console.log(`Stored name for window ${windowId} is "${storedName}"`);
     if ((storedName === null) || (storedName.length === 0)) {
         return `Window-${windowId}`;
     }
@@ -14,11 +14,11 @@ Called when the item has been created, or when creation failed due to an error.
 We'll just log success/failure here.
 */
 function onCreated() {
-    if (browser.runtime.lastError) {
-        console.log(`Error: ${browser.runtime.lastError}`);
-    } else {
-        console.log("Item created successfully");
-    }
+    // if (browser.runtime.lastError) {
+    //     console.log(`Error: ${browser.runtime.lastError}`);
+    // } else {
+    //     console.log("Item created successfully");
+    // }
 }
 
 /*

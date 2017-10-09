@@ -52,7 +52,7 @@ details[open] > summary::before {
     text-overflow: ellipsis;
 }
 .tab_list_div {
-    margin: 0.4em;
+    padding-left: 1em;
     /*background: lightblue;*/
     overflow: hidden;
 }
@@ -68,6 +68,9 @@ details[open] > summary::before {
     height: 1.8em;
     width: calc(100% - 0.4em);
     overflow: hidden;
+}
+.tab_div:hover {
+    background: #393b45;
 }
 .tab_icon {
     margin-top: auto;
