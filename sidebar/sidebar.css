@@ -1,23 +1,90 @@
-.tab_list_div {
-
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
-.tab_div {
-    vertical-align: middle;
-    clear: both;
-    background-color: lightgray;
+body {
+    background: #292b35;
+    color: whitesmoke;
 }
-.tab_icon {
-    vertical-align: middle;
-    margin-left: 0.3em;
-    float: left;
+.window_div {
+    /*background: lightpink;*/
+    width: calc(100% - 0.4em);
+    /*margin: 0.2em;*/
 }
-.tab_title {
-    vertical-align: middle;
-    margin: 0.3em;
+.window_title {
+    /*background: lightgoldenrodyellow;*/
+    display: flex;
+    height: 2em;
+    padding: 0.2em;
+}
+[contenteditable="true"]:focus {
+    background-color: white;
+    color: black;
+}
+::-moz-selection {
+    background: #a8d1ff;
+}
+.window_title:hover {
+    background: #393b45;
+}
+summary::before {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.2em;
+    margin-right: 0;
+    content: '\25B6';
+    display: block;
+    /*background-color: aqua;*/
+    color: dimgray;
+}
+details[open] > summary::before {
+    content: '\25BC';
+}
+.window_title_div {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.2em;
+    padding: 0.1em;
+    /*background: tomato;*/
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-height: 1.5em;
-    max-height: 1.5em;
-    line-height: 1.5em;
+}
+.tab_list_div {
+    margin: 0.4em;
+    /*background: lightblue;*/
+    overflow: hidden;
+}
+.tab_div {
+    /*margin: 0.2em;*/
+    padding: 0.2em;
+    vertical-align: middle;
+    clear: both;
+    /*background-color: lightgreen;*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 1.8em;
+    width: calc(100% - 0.4em);
+    overflow: hidden;
+}
+.tab_icon {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.2em;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    float: left;
+    /*background: blue;*/
+}
+.tab_title {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.5em;
+    /*background: green;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -1,3 +1,14 @@
+"use strict";
+
+function getWindowTitle(windowId) {
+    const storedName = localStorage.getItem(windowId);
+    console.log(`Stored name for window ${windowId} is "${storedName}"`);
+    if ((storedName === null) || (storedName.length === 0)) {
+        return `Window-${windowId}`;
+    }
+    return storedName;
+}
+
 /*
 Called when the item has been created, or when creation failed due to an error.
 We'll just log success/failure here.
@@ -38,7 +49,7 @@ function updateMenu() {
             //console.log(windowInfo.tabs.map((tab) => {return tab.url}));
             browser.menus.create({
                 id: `move-to_${windowInfo.id}`,
-                title: `... to "Window-${windowInfo.id}"`,
+                title: `... to "${getWindowTitle(windowInfo.id)}"`,
                 contexts: ["tab", "all"]
             }, onCreated);
         }
@@ -55,7 +66,7 @@ function updateMenu() {
             console.log(`Adding window focus to menu: ${windowInfo.id}`);
             browser.menus.create({
                 id: `focus-on_${windowInfo.id}`,
-                title: `Go to "Window-${windowInfo.id}"`,
+                title: `Go to "${getWindowTitle(windowInfo.id)}"`,
                 contexts: ["tab", "all"]
             }, onCreated);
         }
@@ -128,6 +139,18 @@ browser.menus.onClicked.addListener((info, tab) => {
     }
 });
 
-browser.windows.onCreated.addListener(updateMenu);
-browser.windows.onRemoved.addListener(updateMenu);
+browser.windows.onCreated.addListener(updateMenu);  // It is inefficient to rebuild the whole menu
+browser.windows.onRemoved.addListener(updateMenu);  // It is inefficient to rebuild the whole menu
+
+function runtimeMessageHandler(message) {
+    console.log("Received message:", message);
+    switch (message.action) {
+        case "rename_window":
+            // updateWindowTitle(message.windowId, message.newName);
+            updateMenu();  // Isn't this inefficient?
+    }
+}
+
+browser.runtime.onMessage.addListener(runtimeMessageHandler);
+
 updateMenu();
