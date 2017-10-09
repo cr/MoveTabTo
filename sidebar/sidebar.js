@@ -178,7 +178,7 @@ browser.tabs.onCreated.addListener(wm.tabCreatedHandler.bind(wm));
 browser.tabs.onRemoved.addListener(wm.tabRemovedHandler.bind(wm));
 browser.tabs.onMoved.addListener(wm.tabMovedHandler.bind(wm));
 browser.tabs.onAttached.addListener(wm.tabAttachedHandler.bind(wm));
-browser.tabs.onDetached.addListener(wm.tabDetachedHandler.bind(wm));
-browser.tabs.onUpdated.addListener(wm.tabUpdatedHandler.bind(wm));
+// browser.tabs.onDetached.addListener(wm.tabDetachedHandler.bind(wm));
+// browser.tabs.onUpdated.addListener(wm.tabUpdatedHandler.bind(wm));
 
 browser.runtime.onMessage.addListener(runtimeMessageHandler);
