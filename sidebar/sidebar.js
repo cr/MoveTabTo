@@ -86,6 +86,7 @@ WindowManager.prototype.addWindow = function WM_addWindow(windowInfo) {
     windowTitle.className = "window_title_div";
     windowTitle.textContent = getWindowTitle(windowInfo.id);
     windowTitle.contentEditable = true;
+    windowTitle.spellcheck = false;
     windowTitle.addEventListener("click", windowTitleClickHandler);
     windowTitle.addEventListener("blur", sendTitleUpdate);
 
