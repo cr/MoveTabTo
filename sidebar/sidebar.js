@@ -138,27 +138,31 @@ WindowManager.prototype.windowRemovedHandler = function WM_windowRemovedHandler(
 };
 WindowManager.prototype.tabCreatedHandler = function WM_tabCreatedHandler(tab) {
     console.log("WM tab created:", tab);
+    this.teardown();
     this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 WindowManager.prototype.tabRemovedHandler = function WM_tabRemovedHandler(tabId, removeInfo) {
     console.log("WM tab removed:", tabId, removeInfo);
+    this.teardown();
     this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 WindowManager.prototype.tabMovedHandler = function WM_tabMovedHandler(tabId, moveInfo) {
     console.log("WM tab moved:", tabId, moveInfo);
+    this.teardown();
     this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 WindowManager.prototype.tabAttachedHandler = function WM_tabAttachedHandler(tabId, attachInfo) {
     console.log("WM tab attached:", tabId, attachInfo);
+    this.teardown();
     this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 WindowManager.prototype.tabDetachedHandler = function WM_tabDetachedHandler(tabId, detachInfo) {
     console.log("WM tab detached:", tabId, detachInfo);
+    this.teardown();
     this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 WindowManager.prototype.tabUpdatedHandler = function WM_tabUpdatedHandler(tabId, changeInfo, tab) {
     console.log("WM tab updated:", tabId, changeInfo, tab);
-    this.setup();  // FIXME: This is insanely wasteful. Implement selective updating of tabs.
 };
 
 const wm = new WindowManager("#window-list");
