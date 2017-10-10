@@ -66,7 +66,7 @@ function updateMenu() {
             console.log(`Adding window focus to menu: ${windowInfo.id}`);
             browser.menus.create({
                 id: `focus-on_${windowInfo.id}`,
-                title: `Go to "${getWindowTitle(windowInfo.id)}"`,
+                title: `Focus "${getWindowTitle(windowInfo.id)}"`,
                 contexts: ["tab", "all"]
             }, onCreated);
         }
@@ -127,11 +127,11 @@ browser.menus.onClicked.addListener((info, tab) => {
 
     } else if (info.menuItemId.startsWith("move-to_")) {
 
-        const windowId = parseInt(info.menuItemId.split("_")[1]);
-        const windowObject = browser.windows.get(windowId);
-        console.log("Moving tab to window ", tab, windowObject);
-        browser.tabs.move(tab.id, {windowId: windowId, index: -1}).then(onMoved, onError);
-        browser.tabs.update(tab.id, {active: true}).then(onActive, onError);
+        const targetWindowId = parseInt(info.menuItemId.split("_")[1]);
+        if (tab.windowId !== targetWindowId) {
+            browser.tabs.move(tab.id, {windowId: targetWindowId, index: -1}).then(onMoved, onError);
+            browser.tabs.update(tab.id, {active: true}).then(onActive, onError);
+        }
 
     } else if (info.menuItemId.startsWith("focus-on_")) {
 
